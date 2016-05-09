@@ -1,0 +1,49 @@
+<style>
+.crop {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+}
+
+img.cropped{
+  height: 150px;
+  margin-left: -30px;
+}
+
+</style>
+<div ng-controller="DashboardController">
+
+  <div class="row spacer">
+    <div class="col-xs-4">
+      <input type="text" placeholder="search..." ng-model="filter_product" />
+      <button>Filter</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-xs-offset-1 text-center" ng-repeat="product in products">
+      <div class="crop">
+        <img class="cropped" src="{{product.imgurl}}" />
+      </div>
+      <h4>{{product.name}}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3><u>Recent Orders</u></h3>
+      <p ng-repeat="order in orders">
+        {{order.customer}} purchased {{order.quantity}} {{order.product_name}}... ({{ getTimeAgo(order.created_at) }})
+      </p>
+      <a href="#/orders">show all orders...</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h3><u>New Customers</u></h3>
+      <p ng-repeat="customer in customers">
+        {{customer.name}} joined the store. {{getTimeAgo(customer.created_at)}}
+
+      </p>
+      <a href="#/customers">show all customers...</a>
+    </div>
+  </div>
+</div>

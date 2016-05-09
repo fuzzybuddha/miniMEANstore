@@ -1,0 +1,56 @@
+<style>
+.crop {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+}
+
+img.cropped{
+  height: 150px;
+  margin-left: -30px;
+}
+
+</style>
+
+<div ng-controller="ProductsController">
+  <div class="row">
+    <!-- left module add product and filter -->
+    <div class="col-xs-2">
+      <input type="text" placeholder="search..." ng-model="filter_product" />
+      <button>Filter</button><br />
+      <div class="row spacer"></div>
+      <div class="row spacer"></div>
+      <h4><u>Add a new product</u><br /></h4>
+      <label>Name: </label><br />
+      <input type="text" ng-model="new_product.name"/><br />
+      <label>Image (url): </label><br />
+      <input type="text" ng-model="new_product.imgurl" placeholder="http://" /><br />
+      <span ng-bind="productURLerr"></span>
+      <label>Description: </label><br />
+      <textarea style="vertical-align: top;" rows=3 ng-model="new_product.description"></textarea><br />
+      <label>Initial Quantity: </label><br />
+      <select ng-model="new_product.quantity">
+        <option ng-repeat="i in getMaxQty(maxQty) track by $index" value="{{$index+1}}">
+          {{$index+1}}
+        </option>
+      </select>
+      <button ng-click="addproduct()">Add Product</button>
+    </div>
+
+    <!-- central module product info -->
+    <div class="col-xs-8">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="col-xs-3 text-center" ng-repeat="product in products">
+            <div class="crop">
+              <img class="cropped" src="{{product.imgurl}}" />
+            </div>
+            <h4>{{product.name}}</h4>
+            <h5>({{product.quantity}} left)</h5>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

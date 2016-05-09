@@ -1,0 +1,68 @@
+<div ng-controller="OrdersController">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <form>
+          <u>Add a new order</u><br />
+          Customer
+          <select ng-model="new_order.customer">
+            <option ng-repeat="customer in customers" value="{{customer.name}}">
+              {{customer.name}}
+            </option>
+          </select>
+          Order
+          <select ng-model="new_order.quantity">
+            <option ng-repeat="i in getMaxQty(maxQty) track by $index" value="{{$index+1}}">
+              {{$index+1}}
+            </option>
+          </select>
+          <select ng-model="new_order.product" ng-options="product.name for product in products">
+            <option value="">Choose Product</option>
+            </option>
+          </select>
+          <button type="submit" ng-click="addorder()">Order</button>
+        </form>
+      </div>
+      <div class="col-xs-12">
+        <input type="text" class="pull-right" placeholder="filter..." ng-model="filter_customer" />
+      </div>
+      <div class="col-xs-12">
+        <table class="table">
+          <thead>
+            <th>
+              Customer Name
+            </th>
+            <th>
+              Product
+            </th>
+            <th>
+              Quantity
+            </th>
+            <th>
+              Date
+            </th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="order in orders | filter:filter_customer">
+              <td>
+                {{order.customer}}
+              </td>
+              <td>
+                {{order.product_name}}
+              </td>
+              <td>
+                {{order.quantity}}
+              </td>
+              <td>
+                {{formatDate(order.created_at)}}
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </div>
+</div>
